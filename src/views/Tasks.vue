@@ -1,13 +1,6 @@
-<template lang="">
-    <div>
-        soheil
-    </div>
+<template>
+       <TaskLayout/>
 </template>
-<script>
-export default {
-    
-}
+<script setup>
+import TaskLayout from '../components/tasks/TaskLayout.vue';
 </script>
-<style lang="">
-    
-</style>
