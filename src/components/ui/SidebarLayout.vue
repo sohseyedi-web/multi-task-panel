@@ -2,10 +2,10 @@
     <Back />
     <aside
       :class="{
-        'w-[240px] left-0 top-0': sidebarActive.active,
-        '-left-52 w-0 top-0': !sidebarActive.active,
+        ' left-0': sidebarActive.active,
+        '-left-64': !sidebarActive.active,
       }"
-      class="z-40 fixed min-h-screen bg-zinc-900 border-zinc-700 border-r-2 py-4 px-2 space-y-3 transition-all duration-300"
+      class="z-40 top-0 w-[240px] fixed min-h-screen bg-zinc-900 border-zinc-700 border-r-2 py-4 px-2 space-y-3 transition-all duration-300"
     >
       <ul class="flex flex-col gap-y-4">
         <TeamSwitcher />
@@ -13,7 +13,6 @@
           <CustomLink to="/">Tasks</CustomLink>
           <CustomLink to="/calendar">Calendar</CustomLink>
           <CustomLink to="/settings">Settings</CustomLink>
-          {{ active }}
         </div>
       </ul>
     </aside>
@@ -30,5 +29,11 @@ const sidebarActive = useUiStore();
 
 const { active } = storeToRefs(sidebarActive);
 
+onMounted(() => {
+  window.addEventListener('resize', sidebarActive.updateMedia);
+});
 
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', sidebarActive.updateMedia);
+});
 </script>
