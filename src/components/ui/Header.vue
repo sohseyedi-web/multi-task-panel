@@ -1,11 +1,11 @@
 <template>
-    <header class="flex items-center justify-between p-4 border-b border-zinc-800">
-        <div class="flex items-center gap-x-4 lg:w-auto w-full ">
+    <header class="flex items-center p-4 justify-between border-b border-zinc-800 ">
+        <div class="flex items-center lg:w-auto w-full lg:gap-0 gap-x-3">
             <span @click="toggleActive">
                 <Bars3CenterLeftIcon  class="size-7 text-zinc-300 lg:hidden flex cursor-pointer"/>
             </span>
             <SidebarLayout/>
-            <img src="/defaultUser.png" class="size-10 rounded-[1.1rem] lg:mr-5 mr-2 object-cover"/>
+            <img src="/defaultUser.png" class="size-10 rounded-[1.1rem] lg:mr-5 mr-2 bg-black object-cover"/>
             <ul class="lg:flex items-center gap-x-5 hidden mr-3">
                 <CustomLink to="/">Tasks</CustomLink>
                 <CustomLink to="/calendar">Calendar</CustomLink>
