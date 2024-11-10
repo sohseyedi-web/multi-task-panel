@@ -9,12 +9,15 @@
     </form>
 </template>
 <script setup>
+import { useTaskStore } from '../../store/taskStore';
 import SelectField from '../ui/SelectField.vue';
 import { ref } from 'vue';
 
 const title = ref('');
 const description = ref('');
 const status = ref('');
+
+const taskStore = useTaskStore();
 
 function handleStatusUpdate(value) {
   status.value = value;
@@ -25,7 +28,14 @@ async function handleSubmit() {
     alert('Please enter a task');
     return;
   }else{
-    console.log(title.value,description.value,status.value)
+    const newTask = {
+      title : title.value,
+      description : description.value,
+      status : status.value,
+      id : Math.random() * 10000,
+      createdAt: new Date().toISOString()
+    }
+    taskStore.addTask(newTask)
   }
 
 
