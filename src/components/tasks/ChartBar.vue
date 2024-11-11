@@ -1,7 +1,9 @@
 <template>
-    <div class="p-6 h-full w-[80%] mx-auto" v-if="taskStore.tasks.length > 0">
-      <div class="h-full">
-        <Bar :data="chartData" :options="chartOptions" />
+    <div class=" border-zinc-800 lg:h-[50%] h-80" v-if="show === '0' || show === '3'" :class="taskStore.tasks.length > 0 ? 'border-t' : 'border-none'">
+      <div class="p-6 h-full lg:w-[80%] w-full mx-auto" v-if="taskStore.tasks.length > 0">
+        <div class="h-full">
+          <Bar :data="chartData" :options="chartOptions" />
+        </div>
       </div>
     </div>
   </template>
@@ -30,7 +32,12 @@
     taskStore.countByStatus.finish,
   ]);
 
-  console.log(taskStore)
+  const {show} = defineProps({
+    show:{
+        type : String,
+        required : true
+    }
+})
   
   const chartData = computed(() => ({
     labels: ['Starting', 'Progress', 'Finish'],
