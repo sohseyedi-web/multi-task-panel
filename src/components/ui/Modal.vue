@@ -1,30 +1,76 @@
+
 <template>
-  <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div
-      class="bg-zinc-800 p-6 rounded-[1.1rem] shadow-lg max-w-md w-full transform transition-transform duration-300"
-    >
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold text-zinc-100">{{title}}</h2>
-        <span @click="$emit('close')">
-          <XMarkIcon class="size-8 text-zinc-100  cursor-pointer"/>
-        </span>
-    </div>
-    <hr class="my-3 border-zinc-700"/>
-    <div>form</div>
-    <div class="flex items-center gap-x-3 text-zinc-100">
-      <button @click="$emit('close')" class=" py-2 bg-purple-500 rounded-[1.1rem] flex-1 font-semibold">Edit Task</button>
-      <button @click="$emit('close')" class="bg-red-500 px-4 py-2  rounded-[1.1rem] font-semibold">Cancel</button>
-    </div>
-    </div>
-  </div>
+  <TransitionRoot appear :show="isVisible" as="template">
+    <Dialog as="div" @close="onClose" class="relative z-50">
+        <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0"
+            enter-to="opacity-100"
+            leave="duration-300 ease-in"
+            leave-from="opacity-100"
+            leave-to="opacity-0"
+        >
+            <div class="fixed inset-0 bg-black/60" />
+        </TransitionChild>
+
+        <div class="fixed inset-0 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center">
+                <TransitionChild
+                    as="template"
+                    enter="duration-300 ease-out"
+                    enter-from="opacity-0 scale-95"
+                    enter-to="opacity-100 scale-100"
+                    leave="duration-300 ease-in"
+                    leave-from="opacity-100 scale-100"
+                    leave-to="opacity-0 scale-95"
+                >
+                    <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-[1.1rem] bg-zinc-900 p-4 text-right align-middle shadow-xl transition-all">
+                        <DialogTitle
+                            as="h3"
+                            class="text-xl font-medium text-zinc-100 w-full flex items-center justify-between"
+                        >
+                          <h3>{{title}}</h3>
+                          <XMarkIcon class="text-zinc-100 size-7 cursor-pointer"  @click="onClose"/>
+                        </DialogTitle>
+                        <hr class="my-3 border-zinc-800">
+                        <slot></slot>
+
+                        <div class="mt-4 flex items-center gap-x-3">
+                            <button
+                                class="flex w-[140px] justify-center rounded-[1.1rem] bg-black py-3 font-semibold text-zinc-100"
+                            >
+                                Save Changes
+                            </button>
+                            <button
+                                class="flex w-[100px] justify-center rounded-[1.1rem] bg-zinc-400 py-3 font-semibold text-zinc-900"
+                                @click="onClose"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </DialogPanel>
+                </TransitionChild>
+            </div>
+        </div>
+    </Dialog>
+</TransitionRoot>
 </template>
 <script setup>
 import {  XMarkIcon } from '@heroicons/vue/20/solid';
+import {
+    TransitionRoot,
+    TransitionChild,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+} from '@headlessui/vue'
 
 
 defineProps({
   isVisible: Boolean,
   title : String,
+  onClose:Function
 });
 
 </script>
