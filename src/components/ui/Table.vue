@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-auto mt-3" v-if="taskStore.tasks.length > 0">
+    <div class="overflow-x-auto lg:mt-3" v-if="taskStore.tasks.length > 0">
         <table class="min-w-full border-b border-zinc-700" >
           <thead class="text-zinc-100 border-b border-zinc-700">
             <tr>
@@ -13,9 +13,9 @@
               <td class="px-4 py-2">{{ toLocaleDate(task.createdAt) }}</td>
               <td class="px-4 py-2">{{ task.title }}</td>
               <td class="px-4 py-2">{{ task.status }}</td>
+              <Modal v-if="isOpen" :isVisible="isOpen" :onClose="closeModal" :title="task.title">test</Modal>
             </tr>
           </tbody>
-          <Modal v-if="isOpen" :isVisible="isOpen" @close="closeModal"/>
         </table>
     </div>
     <div class="text-center mt-3 font-semibold text-lg text-zinc-100" v-else>a list task is empty</div>
