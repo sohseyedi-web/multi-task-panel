@@ -9,4 +9,13 @@ export const useTaskStore = defineStore('taskStore', {
             this.tasks.push(task);
         },
     },
+    getters: {
+        countByStatus: (state) => {
+            return {
+                starting: state.tasks.filter(task => task.status === 'starting').length,
+                progress: state.tasks.filter(task => task.status === 'progress').length,
+                finish: state.tasks.filter(task => task.status === 'finish').length,
+            };
+        },
+    },
 });
